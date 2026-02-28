@@ -11,6 +11,7 @@ const EmergencyDashboard = ({ onDeactivate, triggerSource }) => {
     const [shareLink, setShareLink] = useState('');
     const [alertHistory, setAlertHistory] = useState([]);
     const [currentAlertId, setCurrentAlertId] = useState(null);
+    const isSOS = triggerSource === 'SOS_Police';
 
     useEffect(() => {
         // Load history and contacts from localStorage
@@ -20,13 +21,15 @@ const EmergencyDashboard = ({ onDeactivate, triggerSource }) => {
         // Save current alert session if it's new
         if (triggerSource && !currentAlertId) {
             const newId = Date.now();
+            const typeLabel = isSOS ? 'High Danger SOS' : triggerSource;
             const newAlert = {
                 id: newId,
                 timestamp: new Date().toLocaleString(),
-                type: triggerSource,
-                status: 'Alert Sent',
+                type: typeLabel,
+                status: isSOS ? 'Police Notified' : 'Alert Sent',
                 audioActive: false,
-                locationCaptured: false
+                locationCaptured: false,
+                isSOS: isSOS
             };
             history = [newAlert, ...history].slice(0, 50);
             localStorage.setItem('shesignal_alert_history', JSON.stringify(history));
