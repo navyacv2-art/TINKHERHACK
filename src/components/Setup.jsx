@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Save, UserPlus, Trash2, ShieldCheck } from 'lucide-react';
+import { Save, UserPlus, Trash2, ShieldCheck, Mic, MapPin } from 'lucide-react';
 import './Setup.css';
 
 const Setup = ({ onBack }) => {
@@ -8,6 +8,7 @@ const Setup = ({ onBack }) => {
     const [newPhone, setNewPhone] = useState('');
     const [calcTrigger, setCalcTrigger] = useState('333');
     const [notesTrigger, setNotesTrigger] = useState('I am safe now');
+    const [alertHistory, setAlertHistory] = useState([]);
 
     useEffect(() => {
         const savedContacts = localStorage.getItem('shesignal_contacts');
@@ -31,6 +32,11 @@ const Setup = ({ onBack }) => {
         const savedNotesTrigger = localStorage.getItem('shesignal_notes_trigger');
         if (savedNotesTrigger) {
             setNotesTrigger(savedNotesTrigger);
+        }
+
+        const savedHistory = localStorage.getItem('shesignal_alert_history');
+        if (savedHistory) {
+            setAlertHistory(JSON.parse(savedHistory));
         }
     }, []);
 
@@ -58,6 +64,13 @@ const Setup = ({ onBack }) => {
         const updated = contacts.filter(c => c.id !== id);
         setContacts(updated);
         localStorage.setItem('shesignal_contacts', JSON.stringify(updated));
+    };
+
+    const clearHistory = () => {
+        if (window.confirm('Are you sure you want to clear all past alert history?')) {
+            localStorage.removeItem('shesignal_alert_history');
+            setAlertHistory([]);
+        }
     };
 
     return (
@@ -133,6 +146,40 @@ const Setup = ({ onBack }) => {
                         <div className="info-item">
                             <strong>Lock Screen:</strong> 2 wrong PIN attempts
                         </div>
+                    </div>
+                </section>
+
+                <section className="setup-section">
+                    <div className="section-header">
+                        <h3>Past Alert History</h3>
+                        {alertHistory.length > 0 && (
+                            <button onClick={clearHistory} className="clear-btn">Clear All</button>
+                        )}
+                    </div>
+                    <div className="setup-history-list">
+                        {alertHistory.length > 0 ? (
+                            alertHistory.map(alert => (
+                                <div key={alert.id} className="setup-history-item border-alert">
+                                    <div className="history-details">
+                                        <span className="history-info">
+                                            <strong>{alert.type}</strong> alert triggered
+                                        </span>
+                                        <span className="history-date">{alert.timestamp}</span>
+                                        <div className="setup-history-meta">
+                                            <span className={alert.audioActive ? 'meta-active' : 'meta-inactive'}>
+                                                <Mic size={12} /> {alert.audioActive ? 'Audio' : 'No Audio'}
+                                            </span>
+                                            <span className={alert.locationCaptured ? 'meta-active' : 'meta-inactive'}>
+                                                <MapPin size={12} /> {alert.locationCaptured ? 'Location' : 'No GPS'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span className="history-status">Sent</span>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="no-history-setup">No alert history found.</div>
+                        )}
                     </div>
                 </section>
             </div>

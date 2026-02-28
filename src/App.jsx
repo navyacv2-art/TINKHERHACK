@@ -12,9 +12,11 @@ function App() {
     const [isEmergencyMode, setIsEmergencyMode] = useState(false)
     const [isSetupMode, setIsSetupMode] = useState(false)
     const [disguise, setDisguise] = useState('home') // 'home', 'calculator', 'notes', 'pin'
+    const [triggerSource, setTriggerSource] = useState('')
 
     // Secret trigger handler
     const handleTrigger = (type) => {
+        setTriggerSource(type)
         setIsEmergencyMode(true)
         // Play a very subtle tactile feedback if possible
         if (navigator.vibrate) {
@@ -24,6 +26,7 @@ function App() {
 
     const handleDeactivate = () => {
         setIsEmergencyMode(false)
+        setTriggerSource('')
     }
 
     return (
@@ -64,12 +67,12 @@ function App() {
                         )}
                         {disguise === 'calculator' && (
                             <Calculator
-                                onTrigger={handleTrigger}
+                                onTrigger={() => handleTrigger('Calculator')}
                                 onOpenSetup={() => setIsSetupMode(true)}
                             />
                         )}
-                        {disguise === 'notes' && <Notes onTrigger={handleTrigger} />}
-                        {disguise === 'pin' && <PinLock onTrigger={handleTrigger} />}
+                        {disguise === 'notes' && <Notes onTrigger={() => handleTrigger('Notes')} />}
+                        {disguise === 'pin' && <PinLock onTrigger={() => handleTrigger('PIN Lock')} />}
 
                         {/* Hidden Home Button for navigation */}
                         {disguise !== 'home' && (
@@ -89,7 +92,10 @@ function App() {
                         transition={{ duration: 0.5, ease: "easeOut" }}
                         className="screen-wrapper"
                     >
-                        <EmergencyDashboard onDeactivate={handleDeactivate} />
+                        <EmergencyDashboard
+                            onDeactivate={handleDeactivate}
+                            triggerSource={triggerSource}
+                        />
                     </motion.div>
                 )}
             </AnimatePresence>

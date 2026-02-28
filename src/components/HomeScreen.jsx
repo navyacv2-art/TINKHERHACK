@@ -4,7 +4,7 @@ import {
     Calculator, FileText, Map, Cloud, Phone, MessageSquare, Camera, Settings,
     Wifi, Battery, Signal, Instagram, Twitter, Mail, Music, Image, ShoppingBag,
     Folder, Clock, Heart, Wallet, Bell, Calendar as CalendarIcon, TrendingUp, Users,
-    MessageCircle, Play, Facebook, Youtube, Video
+    MessageCircle, Play, Facebook, Youtube, Video, Zap, Search, Globe, MoreHorizontal, MapPin
 } from 'lucide-react';
 import './HomeScreen.css';
 
@@ -58,11 +58,18 @@ const HomeScreen = ({ onOpenApp }) => {
     return (
         <div className="home-screen" style={{ backgroundImage: 'url("/wallpaper_v2.png")', backgroundSize: 'cover' }}>
             <div className="status-bar">
-                <span className="time">9:41</span>
-                <div className="status-icons">
-                    <Signal size={14} />
-                    <Wifi size={14} />
-                    <Battery size={14} />
+                <div className="status-left">
+                    <span className="time">9:41</span>
+                    <MapPin size={10} style={{ marginLeft: 6, opacity: 0.8 }} />
+                </div>
+                <div className="status-center">
+                    <span className="carrier">SafeNet</span>
+                </div>
+                <div className="status-right">
+                    <Signal size={14} strokeWidth={2.5} />
+                    <Wifi size={14} strokeWidth={2.5} />
+                    <Zap size={14} fill="#ffcc00" color="#ffcc00" strokeWidth={3} style={{ marginRight: -1 }} />
+                    <Battery size={14} strokeWidth={2.5} />
                 </div>
             </div>
 
@@ -131,12 +138,30 @@ const HomeScreen = ({ onOpenApp }) => {
                         <div key={i} className={`dot ${i === page ? 'active' : ''} `} />
                     ))}
                 </div>
+
+                <div className="search-bar-wrapper">
+                    <div className="search-bar">
+                        <Search size={14} color="white" style={{ opacity: 0.6 }} />
+                        <span>Search</span>
+                    </div>
+                </div>
             </div>
 
-            <div className="dock">
-                <div className="dock-icon" style={{ backgroundColor: '#4CD964' }}><Phone size={24} color="white" /></div>
-                <div className="dock-icon" style={{ backgroundColor: '#007AFF' }}><MessageSquare size={24} color="white" /></div>
-                <div className="dock-icon" style={{ backgroundColor: '#FF9500' }} onClick={() => onOpenApp('calculator')}><Calculator size={24} color="white" /></div>
+            <div className="dock-wrapper">
+                <div className="dock">
+                    <div className="dock-icon phone" onClick={() => onOpenApp('phone')}>
+                        <Phone size={28} fill="white" color="white" />
+                    </div>
+                    <div className="dock-icon browser" onClick={() => onOpenApp('browser')}>
+                        <Globe size={28} color="white" />
+                    </div>
+                    <div className="dock-icon messages" onClick={() => onOpenApp('messages')}>
+                        <MessageSquare size={28} fill="white" color="white" />
+                    </div>
+                    <div className="dock-icon calculator" onClick={() => onOpenApp('calculator')}>
+                        <Calculator size={28} color="white" />
+                    </div>
+                </div>
             </div>
         </div>
     );

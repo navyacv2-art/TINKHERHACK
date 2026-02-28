@@ -2,25 +2,67 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Shield, MapPin, Radio, Mic, Send, X, AlertTriangle, Users, CheckCircle2, Copy, ExternalLink } from 'lucide-react';
 import './EmergencyDashboard.css';
 
-const EmergencyDashboard = ({ onDeactivate }) => {
+const EmergencyDashboard = ({ onDeactivate, triggerSource }) => {
     const [location, setLocation] = useState(null);
     const [isRecording, setIsRecording] = useState(false);
     const [status, setStatus] = useState('Silent Alert Active');
     const [logs, setLogs] = useState(['Signal initiated silently...', 'Broadcasting GPS to trusted contacts...']);
     const [contacts, setContacts] = useState([]);
     const [shareLink, setShareLink] = useState('');
+    const [alertHistory, setAlertHistory] = useState([]);
+    const [currentAlertId, setCurrentAlertId] = useState(null);
 
     useEffect(() => {
-        // Load contacts from localStorage
-        const saved = localStorage.getItem('shesignal_contacts');
-        if (saved) {
-            const parsed = JSON.parse(saved);
+        // Load history and contacts from localStorage
+        const savedHistory = localStorage.getItem('shesignal_alert_history');
+        let history = savedHistory ? JSON.parse(savedHistory) : [];
+
+        // Save current alert session if it's new
+        if (triggerSource && !currentAlertId) {
+            const newId = Date.now();
+            const newAlert = {
+                id: newId,
+                timestamp: new Date().toLocaleString(),
+                type: triggerSource,
+                status: 'Alert Sent',
+                audioActive: false,
+                locationCaptured: false
+            };
+            history = [newAlert, ...history].slice(0, 50);
+            localStorage.setItem('shesignal_alert_history', JSON.stringify(history));
+            setCurrentAlertId(newId);
+        }
+        setAlertHistory(history);
+
+        const savedContacts = localStorage.getItem('shesignal_contacts');
+        if (savedContacts) {
+            const parsed = JSON.parse(savedContacts);
             setContacts(parsed.map(c => ({ ...c, status: 'Notified', lastSeen: 'Just now' })));
         }
-    }, []);
+    }, [triggerSource]);
 
     const mediaRecorderRef = useRef(null);
     const chunksRef = useRef([]);
+
+    useEffect(() => {
+        if (!currentAlertId) return;
+
+        const updateHistoryMetadata = () => {
+            const savedHistory = localStorage.getItem('shesignal_alert_history');
+            if (savedHistory) {
+                let history = JSON.parse(savedHistory);
+                const index = history.findIndex(a => a.id === currentAlertId);
+                if (index !== -1) {
+                    history[index].locationCaptured = !!location;
+                    history[index].audioActive = isRecording;
+                    localStorage.setItem('shesignal_alert_history', JSON.stringify(history));
+                    setAlertHistory(history);
+                }
+            }
+        };
+
+        updateHistoryMetadata();
+    }, [location, isRecording, currentAlertId]);
 
     useEffect(() => {
         // 1. Silent GPS Tracking
@@ -174,11 +216,43 @@ const EmergencyDashboard = ({ onDeactivate }) => {
             </div>
 
             <div className="activity-log">
-                <div className="log-header">Activity Log</div>
+                <div className="log-header">Real-time Activity</div>
                 <div className="logs">
                     {logs.map((log, i) => (
                         <div key={i} className="log-item">{log}</div>
                     ))}
+                </div>
+            </div>
+
+            <div className="history-section">
+                <div className="card-header">
+                    <Shield size={18} />
+                    <span>Past Alert History</span>
+                </div>
+                <div className="history-list">
+                    {alertHistory.length > 0 ? (
+                        alertHistory.map(alert => (
+                            <div key={alert.id} className="history-item">
+                                <div className="history-main">
+                                    <span className="history-type">{alert.type}</span>
+                                    <span className="history-time">{alert.timestamp}</span>
+                                    <div className="history-metadata">
+                                        <div className={`meta-pill ${alert.audioActive ? 'active' : ''}`}>
+                                            <Mic size={10} /> {alert.audioActive ? 'Audio ON' : 'Audio OFF'}
+                                        </div>
+                                        <div className={`meta-pill ${alert.locationCaptured ? 'active' : ''}`}>
+                                            <MapPin size={10} /> {alert.locationCaptured ? 'GPS Fixed' : 'GPS Wait'}
+                                        </div>
+                                    </div>
+                                </div>
+                                <span className={`history-status ${alert.status.toLowerCase().replace(' ', '-')}`}>
+                                    {alert.status}
+                                </span>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="no-history">No past alerts recorded.</div>
+                    )}
                 </div>
             </div>
 
