@@ -1,0 +1,175 @@
+.setup-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #0d0d0d;
+    color: white;
+}
+
+.setup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #1a1a1a;
+    border-bottom: 1px solid #333;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.setup-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.setup-section {
+    margin-bottom: 30px;
+}
+
+.setup-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.contacts-manage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.manage-contact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-name {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.contact-phone {
+    font-size: 0.7rem;
+    color: #888;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+}
+
+.add-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    border: 1px dashed #444;
+}
+
+.add-contact-form input {
+    background: #222;
+    border: 1px solid #333;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    outline: none;
+}
+
+.add-btn {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.trigger-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.trigger-edit-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #1a1a1a;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.trigger-edit-item label {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.trigger-input {
+    background: #222;
+    border: 1px solid #444;
+    color: #ff9500;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    outline: none;
+}
+
+.tip {
+    font-size: 0.65rem;
+    color: #555;
+}
+
+.info-item {
+    font-size: 0.8rem;
+    color: #ccc;
+    padding: 8px;
+    background: #1a1a1a;
+    border-radius: 8px;
+}
+
+code {
+    background: #333;
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: #ff9500;
+}

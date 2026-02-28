@@ -1,0 +1,89 @@
+#root {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.app-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    position: relative;
+}
+
+.disguise-switcher {
+    position: absolute;
+    top: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+}
+
+.disguise-switcher button {
+    background: #333;
+    color: white;
+    border: 1px solid #555;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.disguise-switcher button.active {
+    background: #ff4d4d;
+    border-color: #ff4d4d;
+}
+
+.screen-wrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 450px;
+    max-height: 900px;
+    position: relative;
+    background-color: #1a1a1a;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 450px) {
+    .screen-wrapper {
+        border-radius: 40px;
+        border: 8px solid #333;
+        overflow: hidden;
+    }
+}
+
+.hidden-indicator {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.home-indicator {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.home-indicator:hover {
+    background: rgba(255, 255, 255, 0.5);
+}

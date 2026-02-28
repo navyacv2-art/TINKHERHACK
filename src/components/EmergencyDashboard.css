@@ -1,0 +1,288 @@
+.emergency-dashboard {
+    width: 100%;
+    height: 100%;
+    background-color: #0d0d0d;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.safe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    color: #ff4d4d;
+}
+
+.exit-btn {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+}
+
+.status-banner {
+    margin: 20px 0;
+    background: rgba(255, 77, 77, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(255, 77, 77, 0.3);
+}
+
+.pulse-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ff4d4d;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ff4d4d;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 16px;
+    border: 1px solid #333;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.loc-data {
+    font-family: monospace;
+}
+
+.coord {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.accuracy {
+    font-size: 0.7rem;
+    color: #00ff00;
+}
+
+.record-status {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.record-status.active {
+    color: #ff4d4d;
+}
+
+.activity-log {
+    flex: 1;
+    background: #111;
+    border-radius: 16px;
+    padding: 15px;
+    border: 1px solid #222;
+    overflow-y: auto;
+}
+
+.log-header {
+    font-size: 0.8rem;
+    color: #555;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.log-item {
+    font-size: 0.8rem;
+    padding: 8px 0;
+    border-bottom: 1px solid #222;
+    color: #ccc;
+    font-family: monospace;
+}
+
+.action-footer {
+    margin-top: 20px;
+    padding: 15px;
+    background: #1a1a1a;
+    border-radius: 16px;
+}
+
+.emergency-alert {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.alert-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.alert-text strong {
+    color: #ffcc00;
+    font-size: 0.9rem;
+}
+
+.alert-text span {
+    font-size: 0.7rem;
+    color: #888;
+}
+
+.card.full-width {
+    grid-column: span 2;
+}
+
+.share-link-box {
+    display: flex;
+    gap: 10px;
+    background: #222;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.share-link-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ff4d4d;
+    font-size: 0.7rem;
+    font-family: monospace;
+    outline: none;
+}
+
+.copy-btn {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-btn:hover {
+    background: #444;
+}
+
+.wave-container {
+    display: flex;
+    align-items: flex-end;
+    height: 20px;
+    gap: 3px;
+    margin-top: 10px;
+}
+
+.wave {
+    width: 4px;
+    background: #ff4d4d;
+    height: 5px;
+    animation: wave 1s infinite;
+}
+
+.wave:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.wave:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.contacts-section {
+    background: #1a1a1a;
+    border-radius: 16px;
+    padding: 15px;
+    border: 1px solid #333;
+    margin-bottom: 20px;
+}
+
+.contacts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #222;
+    border-radius: 10px;
+    border-left: 3px solid #ff4d4d;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.contact-name {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.contact-status {
+    font-size: 0.7rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.contact-last-seen {
+    font-size: 0.7rem;
+    color: #555;
+}
+
+@keyframes wave {
+    0% {
+        height: 5px;
+    }
+
+    50% {
+        height: 15px;
+    }
+
+    100% {
+        height: 5px;
+    }
+}
