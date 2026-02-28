@@ -24,19 +24,49 @@
     font-weight: 600;
     color: white;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 10;
 }
 
-.status-icons {
+.home-content-wrapper {
+    flex: 1;
     display: flex;
-    gap: 6px;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.pages-track {
+    display: flex;
+    height: 100%;
+    width: 400%;
+    /* Total pages * 100% */
+    cursor: grab;
+    touch-action: pan-y;
+}
+
+.pages-track:active {
+    cursor: grabbing;
+}
+
+.app-page {
+    width: 25%;
+    /* 100% / Total pages */
+    flex-shrink: 0;
+    height: 100%;
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .app-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 100px);
     gap: 20px;
-    padding-top: 20px;
+    padding: 0 10px;
+    width: 100%;
 }
 
 .app-icon-wrapper {
@@ -66,6 +96,100 @@
 .app-name {
     font-size: 0.7rem;
     color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.page-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    position: absolute;
+    bottom: 120px;
+    width: 100%;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: background 0.3s;
+}
+
+.dot.active {
+    background: white;
+}
+
+.widgets-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.widget {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 15px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.widget-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.widget-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.temp {
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.condition {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.battery-level {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.battery-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.battery-bar .fill {
+    height: 100%;
+    background: #4CD964;
+    border-radius: 4px;
+}
+
+.event {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.event-time {
+    font-size: 0.8rem;
+    opacity: 0.8;
 }
 
 .dock {
