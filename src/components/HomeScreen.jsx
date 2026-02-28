@@ -3,19 +3,6 @@ import { Calculator, FileText, Map, Cloud, Phone, MessageSquare, Camera, Setting
 import './HomeScreen.css';
 
 const HomeScreen = ({ onOpenApp }) => {
-    const [currentTime, setCurrentTime] = useState(new Date());
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentTime(new Date());
-        }, 60000);
-        return () => clearInterval(timer);
-    }, []);
-
-    const formatTime = (date) => {
-        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-    };
-
     const apps = [
         { id: 'maps', name: 'Maps', icon: <Map size={32} />, color: '#4285F4' },
         { id: 'weather', name: 'Weather', icon: <Cloud size={32} />, color: '#00A1FF' },
@@ -30,7 +17,7 @@ const HomeScreen = ({ onOpenApp }) => {
     return (
         <div className="home-screen">
             <div className="status-bar">
-                <span className="time">{formatTime(currentTime)}</span>
+                <span className="time">9:41</span>
                 <div className="status-icons">
                     <span>📶</span>
                     <span>🔋</span>
