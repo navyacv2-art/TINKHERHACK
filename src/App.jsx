@@ -28,7 +28,14 @@ function App() {
 
     return (
         <div className="app-container">
-
+            {!isEmergencyMode && !isSetupMode && (
+                <div className="disguise-switcher">
+                    <button onClick={() => setDisguise('home')} className={disguise === 'home' ? 'active' : ''}>Home</button>
+                    <button onClick={() => setDisguise('calculator')} className={disguise === 'calculator' ? 'active' : ''}>Calc</button>
+                    <button onClick={() => setDisguise('notes')} className={disguise === 'notes' ? 'active' : ''}>Notes</button>
+                    <button onClick={() => setDisguise('pin')} className={disguise === 'pin' ? 'active' : ''}>Lock</button>
+                </div>
+            )}
 
             <AnimatePresence mode="wait">
                 {isSetupMode ? (

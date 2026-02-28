@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calculator, FileText, Map, Cloud, Phone, MessageSquare, Camera, Settings } from 'lucide-react';
+import { Calculator, FileText, Map, Cloud, Phone, MessageSquare, Camera, Settings, Wifi, Battery, Signal } from 'lucide-react';
 import './HomeScreen.css';
 
 const HomeScreen = ({ onOpenApp }) => {
@@ -15,12 +15,13 @@ const HomeScreen = ({ onOpenApp }) => {
     ];
 
     return (
-        <div className="home-screen">
+        <div className="home-screen" style={{ backgroundImage: 'url("/wallpaper.png")', backgroundSize: 'cover' }}>
             <div className="status-bar">
                 <span className="time">9:41</span>
                 <div className="status-icons">
-                    <span>📶</span>
-                    <span>🔋</span>
+                    <Signal size={14} />
+                    <Wifi size={14} />
+                    <Battery size={14} />
                 </div>
             </div>
 
